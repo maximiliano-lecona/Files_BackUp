@@ -23,10 +23,69 @@ SESSION_S3 = boto3.client(
 
 # Configuración de salida
 OUTPUT_LOCATION =os.getenv('OUTPUT_LOCATION')
+##### CANALES ######
+LST_CHANNELS = [
+    'farmaciasGDL',
+    'farmaciasBenavides',
+    'farmaciasYZA',
+    'farmaciasroma',
+    'farmaciasdelahorro',
+    'farmaciasSanPablo',
+    'farmaciasISEG',
+    'walmart',
+    'vinoteca',
+    'laeuropea',
+    'palacioDeHierro',
+    'liverpool',
+]
+
+"""
+# Jueves
+LST_STORE_IDS = [
+    '44100_farmaciasgdl',
+    '9999_benavides',
+    '9999_benavides_promos',
+    '9999_farmaciasyza',
+    '9999_farmaciasroma',
+    '9999_farmaciasdelahorro',
+    '9999_farmaciasdelahorro_promos',
+    '9999_farmaciasanpablo',
+    '9999_farmaciasiseg'
+]
+"""
+
+#"""
+# Martes y jueves
+LST_STORE_IDS = [
+    '2034_walmart_frutasyverduras',
+    '2345_walmart_frutasyverduras',
+    '3878_walmart_frutasyverduras'
+]
+#"""
+
+"""
+# Jueves (primero del mes)
+LST_STORE_IDS = [
+    '9999_vinoteca',
+    '9999_laeuropea',
+    '9999_palaciodehierro_vinosylicores',
+    '9999_liverpoollicores',
+    '44100_farmaciasgdl',
+    '9999_benavides',
+    '9999_benavides_promos',
+    '9999_farmaciasyza',
+    '9999_farmaciasroma',
+    '9999_farmaciasdelahorro',
+    '9999_farmaciasdelahorro_promos',
+    '9999_farmaciasanpablo',
+    '9999_farmaciasiseg',
+    '2034_walmart_frutasyverduras',
+    '2345_walmart_frutasyverduras',
+    '3878_walmart_frutasyverduras'
+]
+"""
 
 
-LST_CHANNELS = ['farmaciasGDL', 'farmaciasBenavides', 'farmaciasYZA', 'farmaciasroma',  'farmaciasdelahorro']  # 'walmart',
-LST_STORE_IDS = ['44100_farmaciasgdl', '9999_benavides', '9999_farmaciasyza', '9999_farmaciasroma',  '9999_farmaciasdelahorro_promos', '9999_benavides_promos', '9999_farmaciasdelahorro'] # '2345_walmart_farmacia_subcategory', , '9999_farmaciasyzacuidatemucho'
 LST_ORDER_COLUMN = ['date', 'canal', 'category', 'subcategory', 'subcategory2', 'subcategory3', 'marca', 'modelo', 'sku', 'upc', 'item', 'item characteristics', 'url sku', 'image', 'price', 'sale price', 'shipment cost', 'sales flag', 'store id', 'store name', 'store address', 'stock', 'upc wm2', 'final price', 'upc wm', 'comp', 'last_price' ]
 # Definir fecha límite 
 TARGET_DATE = datetime.now() #- timedelta(days=3) 
@@ -46,18 +105,6 @@ print(df.shape)
 
 df = functions_db.get_last_price_from_s3(df, SESSION_S3, BUCKET_NAME, PREFIX)
 #df["last_price"] = ""
-
-"""
-df, validation_summary = functions_db.validate_and_log_data(
-    df=df,
-    store_ids_expected=LST_STORE_IDS,
-    target_date=TARGET_DATE,
-    s3_client=SESSION_S3,
-    bucket_name=BUCKET_NAME,
-    log_prefix='derivables/soriana/logs',
-    data_prefix=PREFIX
-)
-"""
 
 strToday = TARGET_DATE.strftime('%Y-%m-%d')
 df['date'] = strToday

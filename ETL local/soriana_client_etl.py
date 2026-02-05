@@ -26,7 +26,7 @@ OUTPUT_LOCATION = os.getenv('OUTPUT_LOCATION')
 BUCKET_NAME = os.getenv('BUCKET_NAME')
 
 LST_CHANNELS = ['soriana']
-LST_STORE_IDS = ['252_soriana_farmacia']
+LST_STORE_IDS = ['252_soriana_farmacia', '252_soriana_vinosylicores']
 PREFIX = 'derivables/soriana/client'
 
 TARGET_DATE = datetime.now() #- timedelta(days=2) 
@@ -34,9 +34,9 @@ FILE_NAME = f"client_{TARGET_DATE.strftime('%Y-%m-%d')}.csv"
 
 
 LST_COLUMN_CLIENT = ['departamento', '# departamento', 'categoria',	'# categoria', 'subcategoria', '# subcategoría', 'sku',
-                                 'descripción sku',	'ean',	'marca', 'precio sin promocion sin iva', 'precio sin promocion con iva',	'precio sin iva','precio con iva',	'iva',	'operable',	'activo', 'status',	'direccion comercial',	'proveedor', 'comprador', 'inventario', 'margen',	'margen min', 'grupo', 'pmp con iva', '$ ventas ytd', 'ventas pzas ytd', '$ ventas mtd', 'ventas pzas mtd',	'mercado mtd pzas',	'mercado ytd pzas',	'mercado mtd $',	'mercado ytd $', 'ean wm'] 
+                                 'descripción sku',	'ean',	'marca', 'precio sin promocion sin iva', 'precio sin promocion con iva', 'precio sin iva', 'precio con iva', 'iva',	'operable',	'activo', 'status',	'direccion comercial',	'proveedor', 'comprador', 'inventario', 'margen',	'margen min', 'grupo', 'pmp con iva', '$ ventas ytd', 'ventas pzas ytd', '$ ventas mtd', 'ventas pzas mtd',	'mercado mtd pzas',	'mercado ytd pzas',	'mercado mtd $',	'mercado ytd $', 'ean wm'] 
 
-DICT_COLUMN_CLIENT = {'category': 'departamento','subcategory': 'categoria','subcategory2': 'subcategoria','sku': 'sku','item': 'descripcion sku','upc': 'ean','upc wm':'ean wm','marca': 'marca','price': 'precio sin promocion con iva','final price': 'precio con iva','sales flag': 'status','date': 'proveedor'}
+DICT_COLUMN_CLIENT = {'category': 'departamento','subcategory': 'categoria','subcategory2': 'subcategoria','sku': 'sku','item': 'descripción sku','upc': 'ean','upc wm':'ean wm','marca': 'marca','price': 'precio sin promocion con iva','final price': 'precio con iva','sales flag': 'status','date': 'proveedor'}
 
 print("⏳ Cargando datos desde Athena...")
 df = functions_db.load_raw_data_from_athena(
